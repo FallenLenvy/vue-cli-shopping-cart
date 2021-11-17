@@ -1,9 +1,9 @@
 <template>
-  <section class="cart">
+  <section class="cart" :class="{'inView': modelValue}">
     <div class="header">
       <div>Cart</div>
       <img src="../assets/imgs/harvest.png" alt="cart" />
-      <span @click="show(false)">X</span>
+      <span @click="$emit('update:modelValue', false)">X</span>
     </div>
     <table>
       <colgroup>
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  props: ['show', 'remove', 'inventory', 'cart'],
+  props: ['modelValue', 'remove', 'inventory', 'cart'],
   methods: {
     cartTotal () {
       let total = 0.0

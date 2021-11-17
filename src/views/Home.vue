@@ -4,7 +4,7 @@
     <h1>Just Buy Some Good Food</h1>
   </section>
 
-  <section class="listing">
+  <section class="listing" :class="{'carted':showCart}">
     <h1>Recommended</h1>
     <div class="cards">
       <Card
@@ -22,10 +22,7 @@ import Card from '@/components/Card.vue'
 
 export default {
   name: 'Home',
-  props: ['showCart', 'show', 'inventory', 'addToCart'],
-  mounted () {
-    this.show(this.showCart)
-  },
+  props: ['showCart', 'inventory', 'addToCart'],
   components: {
     Card
   }

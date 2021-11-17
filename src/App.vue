@@ -1,29 +1,28 @@
 <template>
   <header>
-    <a class="menu" href="#"
+    <a class="menu" @click="showMenu = !showMenu"
       ><img src="@/assets/imgs/tomato.png" alt="Logo" />Menu</a
     >
-    <div>
+    <div :class="{'inView':showMenu}">
       <router-link to="/"
         ><img src="@/assets/imgs/tomato.png" alt="Logo" />Home</router-link
       >
       <router-link to="/products">Products</router-link>
       <router-link to="/past">Past Orders</router-link>
     </div>
-    <a @click="cartVisible(true)">
+    <a @click="showCart = true">
       <img src="@/assets/imgs/harvest.png" alt="Cart" /> Cart ({{ totalItems() }})
     </a>
   </header>
 
   <router-view
     :showCart="showCart"
-    :show="cartVisible"
     :inventory="inventory"
     :addToCart="addToCart"
   />
 
   <Cart
-    :show="cartVisible"
+    v-model="showCart"
     :remove="removeFromCart"
     :inventory="inventory"
     :cart="cart"
@@ -48,7 +47,8 @@ export default {
   },
   data () {
     return {
-      showCart: true,
+      showMenu: false,
+      showCart: false,
       inventory: food,
       cart: {}
     }
@@ -60,23 +60,10 @@ export default {
       }
       this.cart[idX] += value
       if (this.cart[idX] <= 0) delete this.cart[idX]
+      this.$store.commit('updateLocalStorage', this.cart)
     },
     removeFromCart (idX) {
       delete this.cart[idX]
-    },
-    cartVisible (isVisible) {
-      this.showCart = isVisible
-      if (isVisible) {
-        document.querySelector('.cart').classList.add('inView')
-        document.querySelectorAll('.listing, .past').forEach((element) => {
-          element.classList.add('carted')
-        })
-      } else {
-        document.querySelector('.cart').classList.remove('inView')
-        document.querySelectorAll('.listing, .past').forEach((element) => {
-          element.classList.remove('carted')
-        })
-      }
     },
     totalItems () {
       let total = 0
@@ -85,6 +72,10 @@ export default {
       }
       return total
     }
+  },
+  mounted () {
+    this.$store.commit('updateCartFromLocalStorage')
+    this.cart = this.$store.getters.cartObject
   }
 }
 </script>

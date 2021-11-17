@@ -57,6 +57,11 @@ header a.menu {
 		z-index: 2;
 		left: 0;
 		top: -12rem;
+		transition: top .5s;
+	}
+	header div.inView {
+		top: 60px;
+		box-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
 	}
 	header a.menu {
 		display: flex;
@@ -86,6 +91,11 @@ section.banner h1 {
 	border-radius: 1rem;
 	box-shadow: 5px 5px 5px white;
 	text-shadow: 5px 5px 5px white;
+}
+@media (max-height: 600px) {
+	section.banner h1 {
+		font-size: 3rem;
+	}
 }
 section.listing, section.past {
 	margin-bottom: 2rem;
@@ -225,7 +235,7 @@ footer a:hover, footer a:focus {
 	margin-top: 1rem;
 	border-collapse: collapse;
 }
-.cart table tr:nth-child(even), .past table tr:nth-child(even) {
+.cart table tr:nth-child(even), .slightDark {
 	background-color: rgba(0, 0, 0, .1);
 }
 .table-img {
@@ -257,4 +267,7 @@ footer a:hover, footer a:focus {
 section.past table {
 	max-width: 948px;
 	font-size: 1.2rem;
+}
+section.past tbody {
+	border-top: 2px dashed darkblue;
 }

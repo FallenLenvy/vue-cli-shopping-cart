@@ -1,5 +1,5 @@
 <template>
-  <section class="listing">
+  <section class="listing" :class="{'carted':showCart}">
     <h1>Products</h1>
     <div class="cards">
       <Card
@@ -17,10 +17,7 @@ import Card from '@/components/Card.vue'
 
 export default {
   name: 'Products',
-  props: ['showCart', 'show', 'inventory', 'addToCart'],
-  mounted () {
-    this.show(this.showCart)
-  },
+  props: ['showCart', 'inventory', 'addToCart'],
   components: {
     Card
   }
