@@ -88,10 +88,13 @@ section.banner h1 {
 	text-shadow: 5px 5px 5px white;
 }
 section.listing, section.past {
-	margin: 0 15px 2rem 15px;
+	margin-bottom: 2rem;
+	padding: 0 15px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	width: 100%;
+	transition: width .5s;
 }
 section.listing h1, section.past h1 {
 	max-width: 948px;
@@ -171,7 +174,7 @@ footer a:hover, footer a:focus {
 
 @media (min-width: 800px) {
 	section.carted {
-		width: calc(100% - 530px);
+		width: calc(100% - 500px);
 	}
 }
 .cart {
@@ -180,9 +183,13 @@ footer a:hover, footer a:focus {
 	width: 100%;
 	height: 100vh;
 	position: fixed;
-	/* right: -500px; */
-	right: 0;
+	right: -500px;
 	top: 0;
+	transition: right .5s;
+}
+.cart.inView {
+	box-shadow: -5px 0 10px rgba(0, 0, 0, .5);
+	right: 0;
 }
 .cart .header {
 	font-size: 2rem;

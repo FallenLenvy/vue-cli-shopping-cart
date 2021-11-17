@@ -23,7 +23,6 @@
   />
 
   <Cart
-    v-if="showCart"
     :show="cartVisible"
     :remove="removeFromCart"
     :inventory="inventory"
@@ -67,13 +66,17 @@ export default {
     },
     cartVisible (isVisible) {
       this.showCart = isVisible
-      document.querySelectorAll('.listing, .past').forEach((element) => {
-        if (isVisible) {
+      if (isVisible) {
+        document.querySelector('.cart').classList.add('inView')
+        document.querySelectorAll('.listing, .past').forEach((element) => {
           element.classList.add('carted')
-        } else {
+        })
+      } else {
+        document.querySelector('.cart').classList.remove('inView')
+        document.querySelectorAll('.listing, .past').forEach((element) => {
           element.classList.remove('carted')
-        }
-      })
+        })
+      }
     },
     totalItems () {
       let total = 0
