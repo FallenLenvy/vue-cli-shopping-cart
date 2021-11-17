@@ -1,0 +1,8 @@
+[
+	{"n":"Broccolis", "i":"broccoli", "p":10.34, "t":"Fruit"},
+	{"n":"Cabbages", "i":"cabbage", "p":11.84, "t":"Leafy"},
+	{"n":"Carrots", "i":"carrot", "p":10.65, "t":"Root"},
+	{"n":"Potatoes", "i":"potato", "p":15.82, "t":"Root"},
+	{"n":"Spinach", "i":"spinach", "p":13.5, "t":"Leafy"},
+	{"n":"Tomatoes", "i":"tomato", "p":18, "t":"Fruit"}
+]
