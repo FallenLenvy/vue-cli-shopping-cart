@@ -39,12 +39,15 @@
     <p v-if="!Object.keys(cart).length" class="empty">No items in cart</p>
     <div class="footer">
       <div><strong>Total: </strong>₹{{ cartTotal() }}</div>
-      <button>Checkout</button>
+      <button @click="checkOut()">Checkout</button>
     </div>
   </section>
 </template>
 
 <script>
+import db from '@/firebase/firebaseinit'
+import { ref, set } from 'firebase/database'
+
 export default {
   props: ['modelValue', 'remove', 'inventory', 'cart'],
   methods: {
@@ -54,6 +57,13 @@ export default {
         total += this.cart[idX] * this.inventory[idX].p
       }
       return total.toFixed(2)
+    },
+    checkOut () {
+      set(ref(db, 'Subject/Test'), 'new text is here').then(() => {
+        console.log('Data sent succesfully')
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
