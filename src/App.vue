@@ -24,6 +24,7 @@
   <Cart
     v-model="showCart"
     :remove="removeFromCart"
+    :removeAll="removeAllFromCart"
     :inventory="inventory"
     :cart="cart"
   />
@@ -60,10 +61,19 @@ export default {
       }
       this.cart[idX] += value
       if (this.cart[idX] <= 0) delete this.cart[idX]
-      this.$store.commit('updateLocalStorage', this.cart)
+      this.$store.commit('updateLocalStorageFromCart', this.cart)
     },
     removeFromCart (idX) {
       delete this.cart[idX]
+      this.$store.commit('updateLocalStorageFromCart', this.cart)
+    },
+    removeAllFromCart () {
+      for (var item in this.cart) {
+        if (Object.prototype.hasOwnProperty.call(this.cart, item)) {
+          delete this.cart[item]
+        }
+      }
+      this.$store.commit('updateLocalStorageFromCart', this.cart)
     },
     totalItems () {
       let total = 0

@@ -14,7 +14,7 @@
           <th>Total</th>
         </tr>
       </thead>
-      <tbody v-for="(cartH, i) in cartHistory" :key="i">
+      <tbody v-for="(cartH, i) in $store.state.cartHistory" :key="i">
         <tr v-for="(val, idX, j) in cartH" :key="j">
           <td class="table-img">
             <img :src="require('@/assets/imgs/'+inventory[idX].i+'.png')" :alt="inventory[idX].n" />
@@ -33,12 +33,9 @@
 export default {
   name: 'Past',
   props: ['showCart', 'inventory'],
-  computed: {
-    cartHistory () {
-      return this.$store.getters.cartHistoryObject
-    }
-  },
   mounted () {
+    this.$store.commit('updateCartHistoryFromLocalStorage')
+
     document.querySelectorAll('.past table tr').forEach((val, i) => {
       if (i % 2 === 0) {
         val.classList.add('slightDark')

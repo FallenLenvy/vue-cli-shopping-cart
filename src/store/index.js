@@ -1,15 +1,11 @@
 import { createStore } from 'vuex'
 
-// function updateLocalStorage (cart) {
-//   localStorage.setItem('cart', JSON.stringify(cart))
-// }
-
 export default createStore({
   state: {
     cart: {},
     cartHistory: [
-      { 2: 1, 4: 13 },
-      { 2: 2, 3: 3, 4: 1 }
+      { 0: 1, 1: 13 },
+      { 2: 2, 3: 3, 4: 1, 5: 2 }
     ]
   },
   getters: {
@@ -21,15 +17,24 @@ export default createStore({
     }
   },
   mutations: {
-    updateLocalStorage (state, cart) {
+    updateLocalStorageFromCart (state, cart) {
       state.cart = cart
       localStorage.setItem('cart', JSON.stringify(state.cart))
-      // updateLocalStorage(state.cart)
     },
     updateCartFromLocalStorage (state) {
       const cart = localStorage.getItem('cart')
       if (cart) {
         state.cart = JSON.parse(cart)
+      }
+    },
+    addCartToHistory (state, cart) {
+      state.cartHistory.push({ ...cart })
+      localStorage.setItem('cartHistory', JSON.stringify(state.cartHistory))
+    },
+    updateCartHistoryFromLocalStorage (state) {
+      const cartHistory = localStorage.getItem('cartHistory')
+      if (cartHistory) {
+        state.cartHistory = JSON.parse(cartHistory)
       }
     }
   },

@@ -39,17 +39,15 @@
     <p v-if="!Object.keys(cart).length" class="empty">No items in cart</p>
     <div class="footer">
       <div><strong>Total: </strong>₹{{ cartTotal() }}</div>
-      <button @click="checkOut()">Checkout</button>
+      <button @click="checkOut" :disabled="JSON.stringify(cart) === JSON.stringify({})">Checkout</button>
     </div>
   </section>
 </template>
 
 <script>
-import db from '@/firebase/firebaseinit'
-import { ref, set } from 'firebase/database'
 
 export default {
-  props: ['modelValue', 'remove', 'inventory', 'cart'],
+  props: ['modelValue', 'remove', 'removeAll', 'inventory', 'cart'],
   methods: {
     cartTotal () {
       let total = 0.0
@@ -59,11 +57,14 @@ export default {
       return total.toFixed(2)
     },
     checkOut () {
-      set(ref(db, 'Subject/Test'), 'new text is here').then(() => {
-        console.log('Data sent succesfully')
-      }).catch((error) => {
-        console.log(error)
-      })
+      // set(ref(db, 'Subject/Test'), 'new text is here').then(() => {
+      //   console.log('Data sent succesfully')
+      // }).catch((error) => {
+      //   console.log(error)
+      // })
+      this.$store.commit('addCartToHistory', this.cart)
+      this.removeAll()
+      // this.$root.$emit('historyUpdated')
     }
   }
 }
